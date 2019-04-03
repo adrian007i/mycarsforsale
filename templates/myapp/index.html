@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+
+  <div class="container">
+     <img src="{% static "images/cover.jpg"%}" width="100%"  alt="Cover">
+  </div>
+
+
+  <div class="container" id="search_section">
+    <div class="jumbotron">
+      <h2>Search What Your Looking For :</h2>
+      <br><hr>
+      <form method="POST" action="{% url 'filterSearch' %}">
+          {{form.as_p}}
+          {% csrf_token%}
+          <input type="SUBMIT" class="btn btn-primary" value="Submit">
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+     <div class="jumbotron">
+        <h2>Listings</h2>
+        <br>
+
+        <div class="row" id="cars_profile">
+
+          {% if cars_list %}
+
+
+              {% for car in cars_list%}
+              <div class="col-sm-4">
+                 <br>
+
+
+
+                 <a><img src="http://127.0.0.1:8000/media/{{car.car_image_1}}" alt="car"></a>
+
+                 <ul style="float:right;">
+                    <li  class="id">
+                      <form method="POST"  action="{% url 'dets' %}">
+                          {% csrf_token%}
+                          <input type="hidden" name="car_id" value="{{car.id_no}}">
+                          <button type="submit" name="button">{{car.id_no}}</button>
+                      </form>
+                   </li>
+                    <li><span>Make: </span>{{car.make}}</li>
+                    <li><span>Model: </span>{{car.model}}</li>
+                    <li><span>Series:</span>{{car.license_no}}</li>
+                    <li class="red">Price:	{{car.price}}</li>
+                    <li><span>Contact: {{car.owner.phonenumber}}	</span></li>
+                    <li><span style="float:right;">
+                      {%  if request.session.email == car.owner.email %}
+                        <form method="POST"  action="{% url 'delete_car' %}" style="display:inline">
+                            {% csrf_token%}
+                            <input type="hidden" name="car_id" value="{{car.id_no}}">
+                            <button type="submit" name="button">  <a href="#" class="change"><i class="fa fa-trash"></i></a></button>
+                        </form>
+
+                        <form method="POST"  action="{% url 'edit_car' %}" style="display:inline">
+                            {% csrf_token%}
+                            <input type="hidden" name="car_id" value="{{car.id_no}}">
+                            <button type="submit" name="button">  <a href="#" class="change"><i class="fa">&#xf044;</i></a></button>
+                        </form>
+                        {% else%}
+                        .
+                      {% endif %}
+
+                    </span></li>
+                 </ul>
+                 <br><br>
+              </div>
+
+
+              {% endfor%}
+
+          {% endif %}
+        </div>
+     </div>
+  </div>
+
+    {% endblock%}

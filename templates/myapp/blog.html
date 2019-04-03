@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Welcome to MyCarsForSale Blog</h2>
+        <br>
+
+        <h3 style="color:blue;">Enter a new post</h3>
+
+        <script type="text/javascript">
+                  $(document).ready(function(){
+           $("textarea").attr({"rows": "2",
+                               "cols": "40"
+           });
+          });
+        </script>
+
+        <form method="POST" style="border: solid blue; width:60%; padding:3%;">
+            {{form.as_p}}
+            {% csrf_token%}
+            <input type="hidden" id="useremail" value="{{request.session.email}}">
+            <input type="SUBMIT" class="btn btn-primary" value="Submit">
+        </form>
+        <script type="text/javascript">
+
+          var em=document.getElementById("useremail").value;
+          $('p:eq( 2 )').css('display','none')
+          document.getElementById("id_author").value=em;
+
+        </script>
+
+        <hr>
+
+        <h2>Approved Posts</h2>
+<br><br>
+        {% if approved_posts %}
+
+
+            {% for post in approved_posts%}
+                {%  if request.session.super%}
+                      <form method="POST"  action="{% url 'delete_entire_post' %}" style="display:inline;">
+                          {% csrf_token%}
+                          <input type="hidden" name="post_id" value="{{post.id}}">
+                          <button type="submit" name="button"> Delete Entire Post</i></a></button>
+
+                      </form>
+
+                      <form method="POST"  action="{% url 'edit_post' %}" style="display:inline;">
+                          {% csrf_token%}
+                          <input type="hidden" name="post_id" value="{{post.id}}">
+                          <button type="submit" name="button"> Edit Post</i></a></button>
+
+                      </form>
+                  {%endif%}
+            <br>
+              <h4><span style="color:blue; font-weight:bolder;">Author:</span> {{post.author.firstname}} {{post.author.lastname}} </h4>
+              <h2><span style="color:blue; font-weight:bolder;"></span> {{post.title}}</h2>
+              <p><span style="color:blue; font-weight:bolder;"></span> {{post.text}}</p>
+              <br>
+              <form method="post" action="{% url 'addComment' %}">
+                {% csrf_token %}
+                <label for="CommentLab">Comment </label><br>
+                <textarea name="comment" rows="8" cols="80"></textarea><br>
+                  <input type="hidden" name="commenter" value="{{request.session.email}}">
+                  <input type="hidden" name="post_id" value="{{post.id}}">
+                  <input type="submit" value="Post">
+              </form>
+
+              <br><br>
+              <span style="color:grey; font-weight:bolder;">Comments</span>
+              <br>
+
+
+              {% if comments %}
+                  {% for comm in comments%}
+                    {% if comm.blog_topic_id == post%}
+                    <p style="font-size:16px; display:inline;"><em style=" color:red;">{{comm.commenter}}: </em> {{comm.text}}</p>
+                        {%  if request.session.super%}
+                          <form method="POST"  action="{% url 'delete_comment' %}" style="display:inline;">
+                              {% csrf_token%}
+                              <input type="hidden" name="comment_id" value="{{comm.id}}">
+                              <button type="submit" name="button">  <a href="#" class="change"><i  class="fa fa-trash"></i></a></button>
+                          </form>
+                        {% endif %}
+                        <br>
+                    {% endif%}
+
+                  {% endfor%}
+              {% endif %}
+
+              <hr style="border:3px solid red;">
+
+
+
+
+
+            {% endfor%}
+
+        {% endif %}
+
+
+      </div>
+    </div>
+
+
+
+
+
+  {% endblock%}

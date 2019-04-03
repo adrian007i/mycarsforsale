@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+  <div class="container" >
+
+    <div class="jumbotron" id="registration_form">
+      <h2>Register to become a member</h2>
+      <br><hr/>
+      <form method="POST" >
+          {{form.as_p}}
+          {% csrf_token%}
+          <input type="SUBMIT" class="btn btn-primary" value="Submit">
+      </form>
+
+    </div>
+
+
+  </div>
+  {% endblock%}

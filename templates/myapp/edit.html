@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+  <div class="container" >
+
+    <div class="jumbotron" id="registration_form">
+      <h2>Edit your car Information</h2>
+      <br><hr/>
+
+
+
+      {% if cars_list %}
+
+          {% for car in cars_list%}
+
+
+
+
+
+      <form method="POST" action="{% url 'edit_car_2' %}">
+          {% csrf_token%}
+          <label for="">  Car ID to be updated : {{car.id_no}} </label><input type="hidden" id="id_no" name="id_no" value="{{car.id_no}}">
+          <br><hr>
+
+          <label for="">  Color: </label> <input type="text" id="color" name="color" value="{{car.color}}"><br><br>
+          <label for="">  Engine: </label> <input type="text" id="engine" name="engine" value="{{car.engine}}"><br><br>
+          <label for="">  Mileage: </label> <input type="text" id="mileage" name="millage" value="{{car.millage}}"><br><br>
+          <label for="">  Trans: </label> <input type="text" id="trans" name="trans" value="{{car.trans}}"><br><br>
+          <label for="">  Price: </label> <input type="text" id="price" name="price" value="{{car.price}}"><br><br>
+
+
+          <input type="SUBMIT" class="btn btn-primary" value="Submit">
+
+
+
+          <br><br>
+      </form>
+
+      {% endfor%}
+
+  {% endif %}
+
+    </div>
+
+
+  </div>
+  {% endblock%}

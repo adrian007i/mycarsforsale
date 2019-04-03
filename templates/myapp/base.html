@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{%load staticfiles %}
+<html lang="en">
+   <head>
+      <title>MyCarsForSale</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="{% static "css/styles.css"%}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+
+     <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+           <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'index' %}">MyCarsForSale</a>
+           </div>
+           <ul class="nav navbar-nav navbar-right">
+
+             {%  if request.session.email %}
+                <li><a>{%  if request.session.super %}(S){% endif %}  Hello {{request.session.email}}</a></li>
+             {% endif %}
+
+
+               <li class="active" ><a href="{% url 'index' %}">HOME</a> </li>
+               <li><a href="{% url 'index' %}#search_section">Search</a></li>
+               <li><a href="{% url 'index' %}#cars_profile">Listings</a> </li>
+             {%  if request.session.email %}
+
+                   <li ><a href="{% url 'blog' %}">Blog</a></li>
+
+                   {%  if request.session.super %}  <li ><a href="{% url 'alldrafts' %}">All Drafts</a></li>
+                   {%else %}                        <li ><a href="{% url 'drafts' %}">My Drafts</a></li>
+                                                    <li><a href="{% url 'upload' %}">Post Car Ad</a></li>
+                   {% endif %}
+                    <li style="background-color:red;"><a href="{% url 'logout_form' %}">Logout</a></li>
+
+              {% else%}
+                     <li><a href="{% url 'user_login' %}">Login</a></li>
+                      <li><a href="{% url 'RegistrationForm' %}">Register</a></li>
+              {% endif %}
+
+           </ul>
+        </div>
+     </nav>
+
+     {% block body_block%}
+
+     {% endblock %}
+
+     <footer>
+       <br><br>
+     <div class="content container-fluid">
+       <div class="row">
+         <div class="col-sm-6">
+           <p> <span class="phone"> Call us 888-555-1234</span></p>
+           <p>All contents &copy; 2018 <a href="#">Adrian John</a></p>
+         </div><!-- col-sm-6 -->
+         <div class="col-sm-6">
+           <nav class="navbar navbar-default" role="navigation">
+             <ul class="nav navbar-nav navbar-right">
+               <li><a href="#">Terms of use</a></li>
+             </ul>
+           </nav>
+         </div><!-- col-sm-6 -->
+       </div><!-- row -->
+     </div><!-- content container -->
+   </footer>
+
+   </body>
+      <script type="text/javascript" src="{% static "javascript/scripts.js" %}">
+   </script>
+</html>

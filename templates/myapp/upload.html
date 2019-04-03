@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+  <div class="container" >
+
+    <div class="jumbotron" id="registration_form">
+      <h2>Upload you car Information</h2>
+      <br><hr/>
+      <form method="POST" enctype="multipart/form-data">
+          {{carform.as_p}}
+
+          <input type="hidden" id="useremail" value="{{request.session.email}}">
+          {% csrf_token%}
+          <input type="SUBMIT" class="btn btn-primary" value="Submit">
+
+          <script type="text/javascript">
+
+            var em=document.getElementById("useremail").value;
+
+            document.getElementById("id_owner").value=em;
+
+          </script>
+          <br><br>
+      </form>
+
+    </div>
+
+
+  </div>
+  {% endblock%}

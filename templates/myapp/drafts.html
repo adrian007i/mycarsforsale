@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+{% block body_block %}
+
+        <div class="container">
+
+          <div class="jumbotron">
+            <h1>My Drafts: </h1>
+            <p style="color:red;">* note: these drafts are yet to be approved by the administrator</p>
+            <hr>
+
+            {% if my_drafts %}
+
+
+                {% for draft in my_drafts%}
+                  <h2><span style="color:grey; font-weight:bolder;">Title:</span> {{draft.title}}</h2>
+                  <p><span style="color:grey; font-weight:bolder;">Text:</span> {{draft.text}}</p>
+
+                  <br><br>
+                {% endfor%}
+
+            {% endif %}
+          </div>
+
+
+        </div>
+
+
+{% endblock%}

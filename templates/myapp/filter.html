@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+
+      <div class="container jumbotron"id="more_info">
+        <h1 style="text-align:center; border-bottom:solid grey;">Car Info</h1>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <ul>
+              {% if cars_list %}
+
+                  {% for car in cars_list%}
+                  <ul>
+                      <li><img src="http://127.0.0.1:8000/media/{{car.car_image_1}}" alt=""></li>
+                      <li><img src="http://127.0.0.1:8000/media/{{car.car_image_2}}" alt=""></li>
+                      <li><img src="http://127.0.0.1:8000/media/{{car.car_image_3}}" alt=""></li>
+                    </ul>
+                  {% endfor%}
+
+                {% else %}
+                  <h2>No results</h2>
+              {% endif %}
+            </ul>
+          </div>
+
+          <div class="col-sm-1">
+
+          </div>
+
+          <div class="col-sm-3">
+
+            {% if cars_list %}
+
+                {% for car in cars_list%}
+                <h2  style="color:blue">Car Information</h2>
+                <ul>
+                    <li><span> </span>{{car.id_no}}</li>
+                    <li><span>Series:</span>{{car.license_no}}</li>
+                    <li><span>Make: </span>{{car.make}}</li>
+                    <li><span>Model: </span>{{car.model}}</li>
+                    <li><span>Year:</span>{{car.year}}</li>
+                    <li><span>Engine:</span>{{car.engine}}</li>
+                    <li><span>Color:	</span> {{car.color}}</li>
+                    <li><span>Mileage:	</span> {{car.millage}}</li>
+                    <li><span>Transmission:	</span> {{car.trans}}</li>
+                    <li><span>Date Uploaded:	</span>{{car.date}}</li>
+                    <li class="red">Price:	{{car.price}}</li>
+                  </ul>
+
+
+
+
+
+                {% endfor%}
+
+            {% endif %}
+          </div>
+
+          <div class="col-sm-4">
+
+            {% if cars_list %}
+
+                {% for car in cars_list%}
+                <h2 style="color:blue">Owner Information</h2>
+                <ul>
+                    <li><span>Name: </span>{{car.owner.firstname}}{{car.owner.lastname}}	</li>
+                    <li><span>Email:	</span> {{car.owner.email}}</li>
+                    <li><span>Contact:	</span> {{car.owner.phonenumber}}</li>
+                  </ul>
+
+                {% endfor%}
+
+            {% endif %}
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+  {% endblock%}

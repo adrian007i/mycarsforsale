@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "myapp/base.html"%}
+{%load staticfiles %}
+  {% block body_block %}
+  <div class="container" >
+
+    <div class="jumbotron" id="registration_form">
+      <h2>Edit your car Information</h2>
+      <br><hr/>
+
+
+
+      {% if post_list %}
+
+          {% for post in post_list%}
+
+      <form method="POST" action="{% url 'edit_post_2' %}">
+          {% csrf_token%}
+          <label for="">  Post to be updated {{post.id}} </label> <input type="hidden" id="id" name="id" value="{{post.id}}">
+          <br><hr>
+
+          <label for="">  Title: </label> <input type="text" id="title" name="title" value="{{post.title}}"><br><br>
+          <label for="">  Text: </label>   <textarea id="text" name="text"rows="8" cols="80">{{post.text}}</textarea><br><br>
+
+
+          <input type="SUBMIT" class="btn btn-primary" value="Update Post">
+
+
+
+          <br><br>
+      </form>
+
+      {% endfor%}
+
+  {% endif %}
+
+    </div>
+
+
+  </div>
+  {% endblock%}
