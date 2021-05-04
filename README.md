@@ -1,8 +1,5 @@
 # mycarsforsale
 This is a web application developed to sell cars.  
-Registered users can create accounts and then post their vehicles for sale or post to the blog.  
-Non registered users can view cars posted and filter results.
-All post must be approved by the administrator before it can be displayed on the blog.
 
 ## Features
 * Login/Registration
@@ -10,9 +7,7 @@ All post must be approved by the administrator before it can be displayed on the
 * Admin Portal
 * Blog
 * Add comments on blog topics
-* 
-
-
+* Admin aprove/reject blog post
 
 ## Languags
 * DJango
@@ -54,3 +49,11 @@ All post must be approved by the administrator before it can be displayed on the
     	- python manage.py makemigrations
     	- python manage.py migrate
 		- python manage.py runserver
+
+
+Note:
+* Project Type: Academic
+* Year: 2018
+* Lead: Adrian John
+
+
